@@ -32,23 +32,9 @@ public class AppController {
 		query.with(new Sort(Sort.Direction.ASC, "time"));
 		List<PriceData> prices = mongoTemplate.find(query, PriceData.class);
 
-		int iter = 0;
-		int i_count = Integer.parseInt(count);
+		PriceCalculator calculator = new PriceCalculator();
+		double avg_prc = calculator.findAvgPrice(prices, Integer.parseInt(count));
 
-		double total = 0.0;
-
-		for (PriceData data : prices) {
-			if (iter > i_count)
-				break;
-
-			System.out.println("Price = " + data.price + " time = " + data.time);
-
-			total = total + data.price;
-		}
-
-		double avg_prc = Math.round(total / i_count);
-
-		System.out.println("Avg Price = " + avg_prc);
 		return new PriceData(avg_prc, new Date());
 	}
 
@@ -58,4 +44,5 @@ public class AppController {
 		repository.save(prcdata);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
+
 }
