@@ -1,4 +1,5 @@
 "# Assignment" 
+
 Publisher - This is a rest client publishing periodic price data to Consumer. This calls the WS exposed by consumer and pushes pricing data.
 
 Pricing Consumer - This SpringBoot application has 2 parts.
